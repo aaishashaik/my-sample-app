@@ -1,0 +1,29 @@
+name: Develop Branch 2 Jobs Workflow
+
+# Trigger workflow on push to develop branch
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  # Job 1: simple task
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Job 1 Step
+        run: echo "This is Job 1 running on develop branch"
+
+  # Job 2: runs only if Job 1 succeeds
+  job2:
+    runs-on: ubuntu-latest
+    needs: job1
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Job 2 Step
+        run: echo "Job 1 succeeded! Now running Job 2 on develop branch"
